@@ -34,13 +34,6 @@
     },
     "exclude": [
         "app/public",
-        "app/views",
         "node_modules*"
-    ],
-    "include": [
-        "client/src/**/*.ts",
-        "client/src/**/*.d.ts",
-        "client/src/**/*.tsx",
-        "client/src/**/*.vue"
     ]
 }
