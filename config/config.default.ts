@@ -1,5 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import * as path from 'path';
+import * as fs from 'fs'
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -21,6 +22,10 @@ export default (appInfo: EggAppInfo) => {
     mapping: {
       '.html': 'nunjucks',
     },
+  };
+
+  config.siteFile = {
+    '/favicon.ico': fs.readFileSync('app/public/favicon.ico'),
   };
 
   // add your egg config in here
