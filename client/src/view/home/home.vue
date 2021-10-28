@@ -60,7 +60,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 
 const Ax = axios.create({
-    baseURL: '/'
+    baseURL: ''
 })
 
 // nav
@@ -82,6 +82,7 @@ const navActive = ref('private')
 function toggleNav (nav: nav) {
     navActive.value = nav.name
     moduleList.value = nav.data
+    console.log('log');
     log()
 }
 
@@ -106,7 +107,7 @@ const moduleToolList = [{
 }]
 
 function log() {
-    Ax.get('hello').then((res) => {
+    Ax.get('/api/v1/hello').then((res) => {
         console.log(res)
     }, (err) => {
         console.log(err)

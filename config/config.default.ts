@@ -3,42 +3,50 @@ import * as path from 'path';
 import * as fs from 'fs'
 
 export default (appInfo: EggAppInfo) => {
-  const config = {} as PowerPartial<EggAppConfig>;
+    const config = {} as PowerPartial<EggAppConfig>;
 
-  // override config from framework / plugin
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1633676620585_2239_12313123';
+    // add your egg config in here
+    config.middleware = [];
 
-  config.static = {
-    prefix: '/assets/',
-    dir: [
-      path.join(appInfo.baseDir, 'app/public/assets'),
-    ],
-  };
+    // override config from framework / plugin
+    // use for cookie sign key, should change to your own and keep security
+    config.keys = appInfo.name + '_1633676620585_2239_12313123';
 
-  config.view = {
-    defaultViewEngine: 'nunjucks',
-    root: path.join(appInfo.baseDir, 'app/public'),
-    mapping: {
-      '.html': 'nunjucks',
-    },
-  };
+    // 静态资源配置
+    config.static = {
+        prefix: '/assets/',
+        dir: [
+            path.join(appInfo.baseDir, 'app/public/assets'),
+        ],
+    };
 
-  config.siteFile = {
-    '/favicon.ico': fs.readFileSync('app/public/favicon.ico'),
-  };
+    // view 层
+    config.view = {
+        defaultViewEngine: 'nunjucks',
+        root: path.join(appInfo.baseDir, 'app/public'),
+        mapping: {
+            '.html': 'nunjucks',
+        },
+    };
 
-  // add your egg config in here
-  config.middleware = [];
+    // 修改 favicon 图标
+    config.siteFile = {
+        '/favicon.ico': fs.readFileSync('app/public/favicon.ico'),
+    };
 
-  // add your special config in here
-  const bizConfig = {
-    sourceUrl: '',
-  };
+    // 配置 cors
+    config.security = {
+        domainWhiteList: ['http://localhost:3000']
+    }
 
-  // the return config will combines to EggAppConfig
-  return {
-    ...config,
-    ...bizConfig,
-  };
+    // add your special config in here
+    const bizConfig = {
+        sourceUrl: '',
+    };
+
+    // the return config will combines to EggAppConfig
+    return {
+        ...config,
+        ...bizConfig,
+    };
 };
